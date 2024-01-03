@@ -1,0 +1,27 @@
+{
+	auto_https off
+	#	local_certs
+}
+
+gateway-a:80 {
+	reverse_proxy :5000 {
+		header_up x-lane a
+	}
+}
+gateway-b:80 {
+	reverse_proxy :5001 {
+		header_up x-lane b
+	}
+}
+
+service-a:80 {
+	@lane-b header x-lane b
+	reverse_proxy @lane-b :5010
+	reverse_proxy :5010
+}
+
+service-b:80 {
+	@lane-b header x-lane b
+	reverse_proxy @lane-b :5021
+	reverse_proxy :5020
+}

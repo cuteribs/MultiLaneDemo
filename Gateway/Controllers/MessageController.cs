@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Gateway.Controllers;
+namespace MultiLane.Gateway.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -12,8 +12,9 @@ public class MessageController : ControllerBase
         var client = this.HttpContext.RequestServices
             .GetRequiredService<IHttpClientFactory>()
             .CreateClient("ServiceA");
-        client.DefaultRequestHeaders.Add("x-lane", this.HttpContext.Request.Headers["x-lane"].ToString());
-        var messages = new[] { message, $"Gateway {Environment.GetEnvironmentVariable("HOSTNAME")}" };
+        var lane = this.HttpContext.Request.Headers["x-lane"].ToString();
+        client.DefaultRequestHeaders.Add("x-lane", lane);
+        var messages = new[] { message, $"Gateway from '{lane}'" };
         var response = await client.PostAsJsonAsync("message", messages);
         return await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
     }

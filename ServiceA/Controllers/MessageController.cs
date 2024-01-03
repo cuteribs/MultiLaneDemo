@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
-namespace ServiceA.Controllers;
+namespace MultiLane.ServiceA.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -13,7 +14,7 @@ public class MessageController : ControllerBase
             .GetRequiredService<IHttpClientFactory>()
             .CreateClient("ServiceB");
         client.DefaultRequestHeaders.Add("x-lane", this.HttpContext.Request.Headers["x-lane"].ToString());
-        messages = messages.Append($"ServiceA {Environment.GetEnvironmentVariable("HOSTNAME")}");
+        messages = messages.Append($"ServiceA {Path.GetFileName(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))}");
         var response = await client.PostAsJsonAsync("message", messages);
         return await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
     }

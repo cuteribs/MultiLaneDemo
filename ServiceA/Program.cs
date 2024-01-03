@@ -1,4 +1,4 @@
-namespace ServiceA;
+namespace MultiLane.ServiceA;
 public class Program
 {
     public static void Main(string[] args)

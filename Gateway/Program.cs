@@ -1,4 +1,4 @@
-namespace Gateway;
+namespace MultiLane.Gateway;
 public class Program
 {
     public static void Main(string[] args)

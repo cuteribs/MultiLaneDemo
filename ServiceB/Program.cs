@@ -1,4 +1,4 @@
-namespace ServiceB;
+namespace MultiLane.ServiceB;
 
 public class Program
 {
