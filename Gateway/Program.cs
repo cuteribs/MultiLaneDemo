@@ -1,4 +1,5 @@
 namespace MultiLane.Gateway;
+
 public class Program
 {
     public static void Main(string[] args)
@@ -9,9 +10,10 @@ public class Program
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-        services.AddHttpClient("ServiceA", client =>
+
+        services.AddHttpClient("default", (sp, client) =>
         {
-            client.BaseAddress = new Uri("http://service-a");
+            client.BaseAddress = new Uri($"http://{args[0]}");
         });
 
         var app = builder.Build();

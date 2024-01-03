@@ -14,14 +14,14 @@ gateway-b:80 {
 	}
 }
 
-service-a:80 {
+service-0:80 {
 	@lane-b header x-lane b
-	reverse_proxy @lane-b :5010
-	reverse_proxy :5010
+	reverse_proxy @lane-b :6000
+	reverse_proxy :6000
 }
 
-service-b:80 {
+service-1:80 {
 	@lane-b header x-lane b
-	reverse_proxy @lane-b :5021
-	reverse_proxy :5020
+	reverse_proxy @lane-b :6011
+	reverse_proxy :6010
 }

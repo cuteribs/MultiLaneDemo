@@ -11,7 +11,7 @@ public class MessageController : ControllerBase
     {
         var client = this.HttpContext.RequestServices
             .GetRequiredService<IHttpClientFactory>()
-            .CreateClient("ServiceA");
+            .CreateClient("default");
         var lane = this.HttpContext.Request.Headers["x-lane"].ToString();
         client.DefaultRequestHeaders.Add("x-lane", lane);
         var messages = new[] { message, $"Gateway from '{lane}'" };
