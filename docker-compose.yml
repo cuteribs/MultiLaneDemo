@@ -1,0 +1,90 @@
+version: "3.6"
+
+services:
+  caddy:
+    container_name: "caddy-0"
+    hostname: "caddy"
+    command:
+      - "caddy"
+      - "run"
+      - "--config"
+      - "/data/Caddyfile"
+      - "--watch"
+    image: "caddy:alpine"
+    ports:
+      - "2019:2019/tcp"
+      - "443:443/tcp"
+      - "80:80/tcp"
+    volumes:
+      - "/mnt/c/git/eric/MultiLaneDemo/caddy:/data"
+    working_dir: "/srv"
+    
+  gateway-0:
+    container_name: "gateway-0"
+    hostname: "gateway-0"
+    image: "multi-lane-demo:1.0"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - gateway
+      - service-a
+
+  service-a-0:
+    container_name: "service-a-0"
+    hostname: "service-a-0"
+    image: "multi-lane-demo:1.0"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-a
+      - service-c
+      - service-b
+
+  service-b-0:
+    container_name: "service-b-0"
+    hostname: "service-b-0"
+    image: "multi-lane-demo:1.0"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-b
+      - service-c
+
+  service-c-0:
+    container_name: "service-c-0"
+    hostname: "service-c-0"
+    image: "multi-lane-demo:1.0"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-c
+
+  service-a-1:
+    container_name: "service-a-1"
+    hostname: "service-a-1"
+    image: "multi-lane-demo:1.1"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-a
+      - service-c
+      - service-b
+
+  service-b-1:
+    container_name: "service-b-1"
+    hostname: "service-b-1"
+    image: "multi-lane-demo:1.1"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-b
+      - service-c
+
+  service-c-1:
+    container_name: "service-c-1"
+    hostname: "service-c-1"
+    image: "multi-lane-demo:1.1"
+    entrypoint:
+      - dotnet
+      - MultiLane.Service.dll
+      - service-c
