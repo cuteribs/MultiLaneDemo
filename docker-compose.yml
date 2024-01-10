@@ -16,7 +16,7 @@ services:
       - "443:443/tcp"
       - "80:80/tcp"
     volumes:
-      - "/mnt/c/git/eric/MultiLaneDemo/caddy:/data"
+      - "/mnt/c/docker/caddy:/data"
     working_dir: "/srv"
     
   gateway-0:

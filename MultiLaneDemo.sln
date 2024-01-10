@@ -5,6 +5,11 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiLane.Service", "Service\MultiLane.Service.csproj", "{E7F9CBD7-321B-4D60-BCF3-825225581533}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1B985B8-63C7-4A3E-B738-9E86120859D7}"
+	ProjectSection(SolutionItems) = preProject
+		Caddyfile = Caddyfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

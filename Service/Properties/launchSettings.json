@@ -6,7 +6,7 @@
             "launchBrowser": true,
             "launchUrl": "swagger",
             "applicationUrl": "http://localhost:5000",
-            "commandLineArgs": "gateway",
+            "commandLineArgs": "service-a",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }

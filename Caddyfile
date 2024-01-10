@@ -3,25 +3,22 @@
 	#	local_certs
 }
 
-gateway-a:80 {
-	reverse_proxy :5000 {
-		header_up x-lane a
-	}
-}
-gateway-b:80 {
-	reverse_proxy :5001 {
-		header_up x-lane b
-	}
-}
-
-service-0:80 {
+:80 {
+	@lane-a header x-lane a
 	@lane-b header x-lane b
-	reverse_proxy @lane-b :6000
-	reverse_proxy :6000
-}
-
-service-1:80 {
-	@lane-b header x-lane b
-	reverse_proxy @lane-b :6011
-	reverse_proxy :6010
+	
+	handle_path /service-a/* {
+		reverse_proxy @lane-b service-a-1:80
+		reverse_proxy service-a-0:80
+	}
+	handle_path /service-b/*  {
+		reverse_proxy @lane-b service-b-0:80
+		reverse_proxy service-b-0:80
+	}
+	handle_path /service-c/*  {
+		reverse_proxy @lane-b service-c-1:80
+		reverse_proxy service-c-0:80
+	}
+	
+	reverse_proxy gateway-0:80
 }
